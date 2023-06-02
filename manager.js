@@ -11,66 +11,67 @@ let menu =
 let tasks = [
   {
     item: 'Empty Dishwasher',
-    status: 'unfinished',
+    status: false,
   },
   {
     item: 'Do the laundry',
-    status: 'unfinished',
+    status: false,
   },
 ];
 
-const showtasks = () => {
-  return menu;
-};
-showtasks();
-
 // Adding task to array
-const addTask = () => {
+let addTask = () => {
   rl.question(console.log('New task?'), (newItem) => {
-    tasks.push({ item: `${newItem}`, status: 'unfinished' });
-
-    rl.close();
-
-    return tasks;
+    tasks.push({ item: `${newItem}`, status: false });
+    console.log(tasks);
+    loopMenu();
   });
 };
-addTask();
 
-// rl.question(console.log(showtasks()), (number) => {
-//   switch (parseInt(number)) {
-//     case 1:
-//       console.log(tasks);
-//       break;
+/// raad
 
-//     case 2:
-//       console.log(addTask());
-//       break;
+let removeTask = () => {
+  rl.question('Enter the task you want to remove: ', (userInput) => {
+    let id = tasks.findIndex((task) => task.item === userInput);
+    if (id !== -1) {
+      tasks.splice(id, 1);
+      console.log('Task has been removed. Left over tasks: ', tasks);
+    } else {
+      console.log('Task not found');
+    }
+    loopMenu();
+  });
+};
 
-//     case 3:
-//       console.log('number 3');
-//       break;
+const loopMenu = () => {
+  rl.question(console.log(menu), (number) => {
+    switch (parseInt(number)) {
+      case 1:
+        console.log(tasks);
 
-//     case 4:
-//       console.log('number 4');
-//       break;
+        loopMenu();
+        break;
 
-//     case 5:
-//       console.log('number 5');
-//       break;
-//     default:
-//       console.log('Wrong number pal, try again!');
-//   }
+      case 2:
+        addTask();
+        break;
 
-//   rl.close();
-// });
+      case 3:
+        removeTask();
+        break;
 
-// let tasksProperties = tasks.map((newTask) => {
-//   let Properties = {
-//     task: tasks.item,
-//     status: 'Unfinished',
-//   };
-//   tasks.item.push(newTask);
-//   return;
-// });
+      case 4:
+        console.log('number 4');
+        break;
 
-// tasksProperties();
+      case 5:
+        console.log('Bye bye');
+        rl.close();
+        break;
+
+      default:
+        console.log('Wrong number pal, try again!');
+    }
+  });
+};
+loopMenu();
