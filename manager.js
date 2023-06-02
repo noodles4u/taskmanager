@@ -10,6 +10,18 @@ var rl = readline.createInterface(process.stdin, process.stdout);
 let menu =
   'Welcome to your task manager,Press:\n 1. to see all your tasks\n 2. to add a task\n 3. to delete a task\n 4. to mark a task as done\n 5. to Exit the task manager';
 
+// let tasks = {};
+
+// fs.readFile('./helloraad.json', 'utf8', (err, jsonString) => {
+//   if (err) {
+//     console.log('File read failed:', err);
+//     return;
+//   }
+//   console.log('File data:', jsonString);
+// });
+
+// tasks = fs.readFileSync('./helloraad.json');
+
 let tasks = [
   {
     item: 'Empty Dishwasher',
@@ -26,7 +38,7 @@ const writeJSON = () => {
 
   fs.writeFile('helloraad.json', json, function (err) {
     if (err) throw err;
-    console.log('complete');
+    // console.log('complete');
   });
 };
 // Adding task to array
