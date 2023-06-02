@@ -32,7 +32,8 @@ let addTask = () => {
 
 let removeTask = () => {
   rl.question('Enter the task you want to remove: ', (userInput) => {
-    let id = tasks.findIndex((task) => task.item === userInput);
+    userInput = userInput.toLowerCase();
+    let id = tasks.findIndex((task) => task.item.toLowerCase() === userInput);
     if (id !== -1) {
       tasks.splice(id, 1);
       console.log('Task has been removed. Left over tasks: ', tasks);
@@ -43,6 +44,24 @@ let removeTask = () => {
   });
 };
 
+let changeStu = () => {
+  rl.question('Enter the task you want to change status of: ', (taskName) => {
+    taskName = taskName.toLowerCase();
+    let Taskid = tasks.findIndex(
+      (task) => task.item.toLowerCase() === taskName,
+    );
+    if (Taskid !== -1) {
+      rl.question('Enter the new status: ', (newStatus) => {
+        tasks[Taskid].status = newStatus;
+        console.log('Task status has been updated. Updated tasks: ', tasks);
+        rl.close();
+      });
+    } else {
+      console.log('Task not found');
+      rl.close();
+    }
+  });
+};
 const loopMenu = () => {
   rl.question(console.log(menu), (number) => {
     switch (parseInt(number)) {
@@ -61,7 +80,7 @@ const loopMenu = () => {
         break;
 
       case 4:
-        console.log('number 4');
+        changeStu();
         break;
 
       case 5:
