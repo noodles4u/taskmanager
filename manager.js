@@ -66,14 +66,15 @@ let changeStu = () => {
       rl.question('Enter the new status: ', (newStatus) => {
         tasks[Taskid].status = newStatus;
         console.log('Task status has been updated. Updated tasks: ', tasks);
-        rl.close();
+        writeJSON();
+        loopMenu();
       });
     } else {
       console.log('Task not found');
     }
-    writeJSON();
-    loopMenu();
   });
+  writeJSON();
+  loopMenu();
 };
 const loopMenu = () => {
   rl.question(console.log(menu), (number) => {
